@@ -103,20 +103,6 @@ with tab_pagamentos:
                 """, (parcela_pag, favorecido, endereco, cpf_cnpj, tipo_doc, num_doc, str(data_pag), valor_pag))
             st.success("Pagamento registrado!")
 
-# ==========================================
-# FUNÇÕES DE APOIO PARA O PDF
-# ==========================================
-from io import BytesIO
-from xhtml2pdf import pisa
-
-def formatar_br(valor: float) -> str:
-    return f"{valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-
-def gerar_pdf(html_content: str):
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html_content.encode("UTF-8")), result)
-    return result.getvalue() if not pdf.err else None
-
 # -- ABA 3: RELATÓRIOS --
 with tab_relatorios:
     st.markdown("#### 🖨️ Gerar Prestação de Contas (Anexos 1, 2, 3 e 5)")
@@ -312,9 +298,7 @@ with tab_relatorios:
                         use_container_width=True
                     )
                 else:
-                    st.error("Erro ao gerar o PDF. Verifique os dados.")
-
-# ==========================================
+                    st.error("Erro ao gerar o PDF. Verifique os dados.")# ==========================================
 # CONTINUAÇÃO DA ABA 3: RELATÓRIOS
 # ==========================================
 with tab_relatorios:
